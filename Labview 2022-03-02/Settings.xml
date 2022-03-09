@@ -1,0 +1,57 @@
+<?xml version='1.0' standalone='yes' ?>
+<LVData xmlns="http://www.ni.com/LVData">
+<Version>20.0.1f1</Version>
+<Cluster>
+<Name>Paramètres en entrée</Name>
+<NumElts>4</NumElts>
+<Cluster>
+<Name>Configuration du matériel</Name>
+<NumElts>2</NumElts>
+<String>
+<Name>Refnum de matériel &lt;À remplacer&gt;</Name>
+<Val></Val>
+</String>
+<EW>
+<Name>Type de signal &lt;À remplacer&gt;</Name>
+<Choice>Sine Wave</Choice>
+<Choice>Square with Noise</Choice>
+<Choice>Signal triangulaire</Choice>
+<Choice>Simulation DAQ</Choice>
+<Val>0</Val>
+</EW>
+</Cluster>
+<Cluster>
+<Name>Configuration de l'enregistrement</Name>
+<NumElts>2</NumElts>
+<Path>
+<Name>Chemin de base du fichier journal</Name>
+<Val>C:\Users\ANDAI35\Documents\LabVIEW Data\Logged Data.tdms</Val>
+</Path>
+<Refnum>
+<Name>Référence de fichier TDMS</Name>
+<RefKind>TDMS File</RefKind>
+<Val>0x00000000</Val>
+</Refnum>
+</Cluster>
+<Cluster>
+<Name>Cluster test</Name>
+<NumElts>2</NumElts>
+<DBL>
+<Name>Numérique</Name>
+<Val>2.00000000000000</Val>
+</DBL>
+<DBL>
+<Name>Numérique 2</Name>
+<Val>0.00000000000000</Val>
+</DBL>
+</Cluster>
+<Cluster>
+<Name>Mode de longueur d'onde</Name>
+<NumElts>1</NumElts>
+<Boolean>
+<Name>Choix du mode</Name>
+<Val>1</Val>
+</Boolean>
+</Cluster>
+</Cluster>
+</LVData>

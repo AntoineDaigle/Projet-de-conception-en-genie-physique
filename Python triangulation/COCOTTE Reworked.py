@@ -114,6 +114,6 @@ class Triangulation_cocotte:
 
 
 
-# Triangulation_cocotte(np.array([-5.1961524, -3.0]), np.array([5.1961524, -3.0]), np.array([0.0, 6.0]), 45.796, 23.575, 81.817).Itération()
+Triangulation_cocotte(np.array([-5.1961524, -3.0]), np.array([5.1961524, -3.0]), np.array([0.0, 6.0]), 45.796, 23.575, 81.817).Itération()
 
 # print(Triangulation_cocotte(np.array([-5.1961524, -3.0]), np.array([5.1961524, -3.0]), np.array([0.0, 6.0]), 45.796, 23.575, 81.817).Distance_rayon_a_faisceau(45.796, 400))

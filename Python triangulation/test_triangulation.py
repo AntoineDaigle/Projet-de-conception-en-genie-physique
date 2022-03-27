@@ -14,22 +14,20 @@ class TestTriangulation(unittest.TestCase):
     """
 
     def test_position_faisceau(self):
-        """Test l'intersection des cercles
+        """Test l'intersection des cercles. J'assume qu'il y a toujours une intersection. De pars la construction du powermeter.
         """
-        Out = Triangulation((0,0), (6,0), (3,3), 46, 24, 82).Position_faisceau((0,0), (6,0), 4, 4)
-        self.assertSequenceEqual((round(Out[0],3), round(Out[1], 3)), (3.0, 2.646))
+        # Cas normal
+        Out = Triangulation((0,0), (5,0), (3,3), 46, 24, 82).Position_faisceau((0,0), (5,0), 4, 5)
+        self.assertSequenceEqual((round(Out[0],3), round(Out[1], 3)), (1.6, 3.666))
 
-        Out = Triangulation((0,0), (6,0), (3,3), 46, 24, 82).Position_faisceau((0,0), (6,0), 3, 4)
-        self.assertSequenceEqual((round(Out[0],3), round(Out[1], 3)), (2.417, 1.778))
+        # Cas normal 2
+        Out = Triangulation((0,0), (5,0), (3,3), 46, 24, 82).Position_faisceau((0,0), (5,1), 4, 5)
+        self.assertSequenceEqual((round(Out[0],3), round(Out[1], 3)), (0.922, 3.892))
 
-        Out = Triangulation((0,0), (6,0), (3,3), 46, 24, 82).Position_faisceau((0,0), (6,0), 4, 7)
-        self.assertSequenceEqual((round(Out[0],3), round(Out[1], 3)), (0.25, 3.992))
-
-        Out = Triangulation((0,0), (6,0), (3,3), 46, 24, 82).Position_faisceau((0,0), (6,0), 3, 7)
-        self.assertSequenceEqual((round(Out[0],3), round(Out[1], 3)), (-0.333, 2.981))
-
-        Out = Triangulation((1, 2), (6,0), (3,3), 46, 24, 82).Position_faisceau((1,2), (6,0), 4, 4)
-        self.assertSequenceEqual((round(Out[0],3), round(Out[1], 3)), (4.599, 3.746))
+        # Toutes coord mauvaises
+        with self.assertRaises(AssertionError):
+            Triangulation((1,0), (5,1), (3,3), 46, 24, 82).Position_faisceau((1,0), (5,1), 2, 6)
+        
 
 
 
@@ -45,7 +43,7 @@ class TestTriangulation(unittest.TestCase):
 
 
     def test_rayon_max(self):
-        """MÉthode qui calcul si le rayon maximum fait du sens."""
+        """Méthode qui calcul si le rayon maximum fait du sens."""
         out = round(Triangulation((0,0), (6,0), (3,3), 46, 24, 82).Rayon_max(),3)
         self.assertAlmostEqual(out, round(6+3*np.sqrt(2),3))
 

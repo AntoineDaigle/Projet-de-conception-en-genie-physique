@@ -4,7 +4,7 @@
 # TODO Vérifier la documentation
 
 
-from math import log, sqrt
+from math import log
 from numpy.linalg import norm
 import numpy as np
 
@@ -55,7 +55,7 @@ class Triangulation:
 
 
     def Position_faisceau(self, Capteur1:tuple, Capteur2:tuple, R1:float, R2:float) -> tuple:
-        """Méthode qui calcule la position du faisceau à l'aide de l'intersection de deux cercles. La méthode a été trouvé sur le web. J'assume aucune position pour les capteurs.
+        """Méthode qui calcule la position du faisceau à l'aide de l'intersection de deux cercles. La méthode a été trouvé sur le web. J'assume aucune position pour les capteurs. Cependant, il est toujours supposé avoir une intersection entre les cercles.
 
         Args:
             Capteur1 (tuple): Position du premier capteur
@@ -69,23 +69,50 @@ class Triangulation:
         
 
 
-
+        # Paramètre à calculer
         a = 2*(Capteur2[0] - Capteur1[0]) 
         b = 2*(Capteur2[1] - Capteur1[1]) 
         c = (Capteur2[0] - Capteur1[0])**2 + (Capteur2[1] - Capteur1[1])**2 - R2**2 + R1**2
         d = (2*a*c)**2 - 4*(a**2+b**2)*(c**2 - b**2 * R1**2)
 
 
-        x = Capteur1[0]+(2*a*c + np.sqrt(d))/(2*(a**2 + b**2))
 
         if b == 0:
-            y = Capteur1[1] + np.sqrt(R2**2 - ((2*c - a**2)/(2*a))**2)
+            X1 = Capteur1[0]+(2*a*c + np.sqrt(d))/(2*(a**2 + b**2))
+            x=X1
+            
+            Y1 = Capteur1[1] + np.sqrt(R2**2 - ((2*c - a**2)/(2*a))**2)
+            Y2 = Capteur1[1] - np.sqrt(R2**2 - ((2*c - a**2)/(2*a))**2)
+
+            assert X1 > 0 , "Attention la distance en X n'est pas positive"
+
+            if Y1 > 0:
+
+                y = Y1
+                x = X1
+            else:
+                assert Y2 > 0, "Attention, aucune coord en Y n'est positive"
+                y=Y2
+                x = X1
 
         else:
-            y = Capteur1[1] + (c-a*(x-Capteur1[0]))/b
+            X1 = Capteur1[0]+(2*a*c + np.sqrt(d))/(2*(a**2 + b**2))
+            X2 = Capteur1[0]+(2*a*c - np.sqrt(d))/(2*(a**2 + b**2))
 
+            Y1 = Capteur1[1] + (c-a*(X1-Capteur1[0]))/b
+            Y2 = Capteur1[1] + (c-a*(X2-Capteur1[0]))/b
+
+            if X1 < 0 or Y1 < 0:
+                assert Y2 > 0 and X2 > 0, "Attention, une des coordonnées sélectionnées n'est pas positive."
+                y=Y2
+                x=X2
+            else:
+                y=Y1
+                x=X1
 
         return x, y
+
+
 
 
     def Rayon_max(self) -> float:
@@ -114,13 +141,17 @@ class Triangulation:
         R_max = self.Rayon_max()
 
         SAFE=1
-        while abs(DiffR) > 0.1:
+        while abs(DiffR) > 0.0001:
 
             SAFE +=1
 
             R1 = self.Distance_rayon_a_faisceau(self.T1, T_max)            
             R2 = self.Distance_rayon_a_faisceau(self.T2, T_max)
             R3 = self.Distance_rayon_a_faisceau(self.T3, T_max)
+            # print(R1)
+            # print(R2)
+            # print(R3)
+            # print("\n\n")
 
 
             
@@ -132,55 +163,20 @@ class Triangulation:
             if R_actuel > R_max:
                 T_max = T_max*0.95
 
-            elif SAFE == 100:
+            elif SAFE == 1000:
                 print("SAFE")
                 break
 
             else:
                 T_max = T_max * 1.05
 
-        print("{}\n{}\n{}\n\n".format(R1, R2, R3))
-        print("Pos:", self.Position_faisceau(self.C1, self.C2, R1, R2), "temp:", T_max + self.T_amb)
+        PositionFinale = self.Position_faisceau(self.C1, self.C2, R1, R2)
 
-Triangulation((0,0), (6,0), (3,9), 46, 24, 82).Itération_tentative()
-# Triangulation((0,0), (6,0), (3,3), 46, 24, 82).Position_faisceau((0,0), (6,0), 4, 4)
+        print("­\n- - RESULTS - -\n")
+        print("\tRayon 1: {}\n\tRayon 2: {}\n\tRayon 3: {}\n".format(R1, R2, R3))
+        print("\tPosition: ({}, {})\n\tTempérature: {} C\n".format(round(PositionFinale[0], 4), round(PositionFinale[1], 4), round(T_max + self.T_amb, 2)))
 
+Triangulation((0,0), (6,0), (3,9), 46, 26, 82).Itération_tentative()
+# Triangulation((0,0), (6,0), (3,9), 26, 100, 100).Itération_tentative()
+# Triangulation(np.array([0, 0]), np.array([5.1961524*2, 0]), np.array([5.1961524, 9.0]), 45.796, 23.575, 81.817).Itération_tentative()   # Pas valide, car premier capteur pas à (0,0)
 
-
-    # def Itération(self):
-        
-
-    #     T_max = 400     # Température supposé
-    #     DiffR3 = 1
-
-    #     while abs(DiffR3) > 0.01:
-
-    #         R1 = self.Distance_rayon_a_faisceau(self.T1, T_max)            
-    #         R2 = self.Distance_rayon_a_faisceau(self.T2, T_max)
-    #         R3 = self.Distance_rayon_a_faisceau(self.T3, T_max)
-
-
-    #         Position_suppose = self.Position_faisceau(R1, R2)
-
-    #         Position_R3_suppose = norm([[self.C3[0]- Position_suppose[0]], [self.C3[1]-Position_suppose[1]]])
-    #         DiffR3 = R3 - Position_R3_suppose
-
-    #         if Position_R3_suppose < R3:
-    #             T_max = T_max*0.97
-
-    #         else:
-    #             T_max = T_max *1.03
-
-    #     print("La position calculé est: {} et la température maximale est de {} Celsius".format(Position_R3_suppose, T_max))
-
-
-
-
-
-
-
-
-# Triangulation((0,0), (6,0), (3,3), 46, 24, 82).Position_faisceau(6,9)
-# Triangulation((0,0), (6,0), (3,3), 46, 24, 82).Itération()
-
-# Triangulation(np.array([-5.1961524, -3.0]), np.array([5.1961524, -3.0]), np.array([0.0, 6.0]), 45.796, 23.575, 81.817).Itération()   # Pas valide, car premier capteur pas à (0,0)

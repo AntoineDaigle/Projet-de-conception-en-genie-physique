@@ -142,6 +142,8 @@ class Triangulation:
         R_max = self.Rayon_max()
 
         SAFE=1
+
+
         while abs(DiffR) > 0.001:
 
             SAFE +=1
@@ -172,7 +174,7 @@ class Triangulation:
         print("\tRayon 1: {}\n\tRayon 2: {}\n\tRayon 3: {}\n".format(R1, R2, R3))
         print("\tPosition: ({}, {})\n\tTempérature: {} C\n".format(round(PositionFinale[0], 4), round(PositionFinale[1], 4), round(T_max + self.T_amb, 2)))
 
-        return self.C1, self.C2, self.C3, R1, R2, R3
+        return self.C1, self.C2, self.C3, R1, R2, R3, PositionFinale
 
 
 def PLOT():
@@ -186,6 +188,7 @@ def PLOT():
     axes.add_patch(Cir2)
     axes.add_patch(Cir3)
     plt.scatter([C1[0], C2[0], C3[0]], [C1[1], C2[1], C3[1]], color="black")
+    plt.scatter([Pos[0]], [Pos[1]], color="fuchsia", edgecolors= 'k', s= 150)
     plt.axhline(0, c="black")
     plt.axvline(0, c="black")
     plt.axis('scaled')
@@ -195,9 +198,9 @@ def PLOT():
 
 
 if __name__ == "__main__":
-    C1, C2, C3, R1, R2, R3 = Triangulation((0,0), (6,0), (3,9), 46, 35, 82).Itération_tentative()
-    # C1, C2, C3, R1, R2, R3 = Triangulation((0,0), (6,0), (3,9), 30, 40, 70).Itération_tentative()
-    # C1, C2, C3, R1, R2, R3 = Triangulation((0,0), (6,0), (3,9), 30, 40, 100).Itération_tentative()
-    # C1, C2, C3, R1, R2, R3 = Triangulation(np.array([0, 0]), np.array([5.1961524*2, 0]), np.array([5.1961524, 9.0]), 45.796, 23.575, 81.817).Itération_tentative()   # Pas valide, car premier capteur pas à (0,0)
+    # C1, C2, C3, R1, R2, R3, Pos = Triangulation((0,0), (6,0), (3,9), 46, 35, 82).Itération_tentative()
+    C1, C2, C3, R1, R2, R3, Pos = Triangulation((0,0), (6,0), (3,9), 30, 40, 70).Itération_tentative()
+    # C1, C2, C3, R1, R2, R3, Pos =Triangulation((0,0), (6,0), (3,9), 45 ,50, 35).Itération_tentative()
+    # Triangulation(np.array([0, 0]), np.array([5.1961524*2, 0]), np.array([5.1961524, 9.0]), 45.796, 23.575, 81.817).Itération_tentative()   # Pas valide, car premier capteur pas à (0,0)
     PLOT()
 

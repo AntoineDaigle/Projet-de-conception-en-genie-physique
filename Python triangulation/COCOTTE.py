@@ -70,10 +70,3 @@ while abs(DELTA_R_3) > 1e-2: # Tant qu'il y a une diff√©rence entre le R3 estim√
         T_MAX = T_MAX * 1.10
 
 print(GUESSED_POS, T_MAX+22)
-
-
-
-
-
-
-

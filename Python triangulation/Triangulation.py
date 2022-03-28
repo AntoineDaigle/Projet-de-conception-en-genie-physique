@@ -177,7 +177,9 @@ class Triangulation:
         return self.C1, self.C2, self.C3, R1, R2, R3, PositionFinale
 
 
-def PLOT():
+
+
+def PLOT(C1, C2, C3, R1, R2, R3, Pos):
     figure, axes = plt.figure(), plt.gca()
 
     Cir1 = plt.Circle(C1, R1, color="b", fill=False)
@@ -198,9 +200,8 @@ def PLOT():
 
 
 if __name__ == "__main__":
-    # C1, C2, C3, R1, R2, R3, Pos = Triangulation((0,0), (6,0), (3,9), 46, 35, 82).Itération_tentative()
-    C1, C2, C3, R1, R2, R3, Pos = Triangulation((0,0), (6,0), (3,9), 30, 40, 70).Itération_tentative()
-    # C1, C2, C3, R1, R2, R3, Pos =Triangulation((0,0), (6,0), (3,9), 45 ,50, 35).Itération_tentative()
-    # Triangulation(np.array([0, 0]), np.array([5.1961524*2, 0]), np.array([5.1961524, 9.0]), 45.796, 23.575, 81.817).Itération_tentative()   # Pas valide, car premier capteur pas à (0,0)
-    PLOT()
+    # PLOT(*Triangulation((0,0), (6,0), (3,9), 46, 35, 82).Itération_tentative())
+    # PLOT(*Triangulation((0,0), (6,0), (3,9), 30, 40, 70).Itération_tentative())
+    # PLOT(*Triangulation((0,0), (6,0), (3,9), 45 ,50, 35).Itération_tentative())
+    # PLOT(*Triangulation(np.array([0, 0]), np.array([5.1961524*2, 0]), np.array([5.1961524, 9.0]), 45.796, 23.575, 81.817).Itération_tentative() )  # Pas valide, car premier capteur pas à (0,0)
 

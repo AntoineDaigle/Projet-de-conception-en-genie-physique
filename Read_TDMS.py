@@ -2,6 +2,14 @@ from nptdms import TdmsFile
 import numpy as np
 
 def Read_TDMS(Path):
+    """Fonction qui permet de déchiffrer le fichier TDMS produit par le logiciel Labview.
+
+    Args:
+        Path (regex): Chemin du fichier.
+
+    Returns:
+        tuple: (Therm1, Therm2)
+    """
 
     tdms_file = TdmsFile.read(Path)
 

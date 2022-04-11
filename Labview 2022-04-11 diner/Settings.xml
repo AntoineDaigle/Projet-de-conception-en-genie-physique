@@ -1,0 +1,57 @@
+<?xml version='1.0' standalone='yes' ?>
+<LVData xmlns="http://www.ni.com/LVData">
+<Version>18.0f2</Version>
+<Cluster>
+<Name>Paramètres en entrée</Name>
+<NumElts>4</NumElts>
+<Cluster>
+<Name>Configuration du matériel</Name>
+<NumElts>2</NumElts>
+<String>
+<Name>Refnum de matériel &lt;À remplacer&gt;</Name>
+<Val></Val>
+</String>
+<EW>
+<Name>Type de signal &lt;À remplacer&gt;</Name>
+<Choice>Sine Wave</Choice>
+<Choice>Square with Noise</Choice>
+<Choice>Signal triangulaire</Choice>
+<Choice>Simulation DAQ</Choice>
+<Val>1</Val>
+</EW>
+</Cluster>
+<Cluster>
+<Name>Configuration de l'enregistrement</Name>
+<NumElts>2</NumElts>
+<Path>
+<Name>Chemin de base du fichier journal</Name>
+<Val>C:\Users\ANDAI35\Documents\LabVIEW Data\Logged Data.tdms</Val>
+</Path>
+<Refnum>
+<Name>Référence de fichier TDMS</Name>
+<RefKind>TDMS File</RefKind>
+<Val>0x00000000</Val>
+</Refnum>
+</Cluster>
+<Cluster>
+<Name>Mode de longueur d'onde</Name>
+<NumElts>2</NumElts>
+<Boolean>
+<Name>Choix du mode</Name>
+<Val>0</Val>
+</Boolean>
+<DBL>
+<Name>Commande numérique</Name>
+<Val>500.00000000000000</Val>
+</DBL>
+</Cluster>
+<Cluster>
+<Name>périphérique</Name>
+<NumElts>1</NumElts>
+<DAQChannel>
+<Name>Nom du périphérique</Name>
+<Val>Dev1</Val>
+</DAQChannel>
+</Cluster>
+</Cluster>
+</LVData>

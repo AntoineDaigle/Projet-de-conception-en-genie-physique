@@ -37,3 +37,4 @@ def Read_TDMS(Path):
 
 Therm1, Therm2 = Read_TDMS(r"C:\Users\Anto\Desktop\Projet-de-conception-en-genie-physique\logg data_2022_04_09_16_21_02.tdms")
 
+print(Therm1)

@@ -31,16 +31,17 @@ class Triangulation:
         self.C2 = C2
         self.C3 = C3
         self.C4 = C4
-        self.T1 = T1
-        self.T2 = T2
-        self.T3 = T3
-        self.T4 = T4
+        self.T1 = T1-273
+        self.T2 = T2-273
+        self.T3 = T3-273
+        self.T4 = T4-273
 
-        self.T_amb = 22     # Température ambiante supposée [Celsius]
+        self.T_amb = 20     # Température ambiante supposée [Celsius]
 
 
 
     def Distance_rayon_a_faisceau(self, T_capteur:float, T_max:float, Coeff1:float = 0.17586509, Coeff2:float = 1.53679005) -> float:
+
         """Méthode qui calcul la distance entre un capteur et la position du faisceau. 
             T_{capteur} = T_{max} e^{-Coeff1 r^{Coeff2}} + T_{amb}
         Les coefficients sont trouvées à l'aide de la simulation thermique.
@@ -48,8 +49,8 @@ class Triangulation:
         Args:
             T_capteur (float): Température du capteur en celsius.
             T_max (float): Température supposé du faisceau à son maximum.
-            Coeff1 (float, optional): Premier coefficient de la décroissance exponentielle. Defaults to 1.
-            Coeff2 (float, optional): Deuxième coefficient de la décroissance exponentielle. Defaults to 2.
+            Coeff1 (float, optional): Premier coefficient de la décroissance exponentielle. Defaults to 0.17586509.
+            Coeff2 (float, optional): Deuxième coefficient de la décroissance exponentielle. Defaults to 1.53679005.
 
         Returns:
             float: Distance entre le capteur et le faisceau.
@@ -91,7 +92,7 @@ class Triangulation:
             Y1 = Capteur1[1] + np.sqrt(R2**2 - ((2*c - a**2)/(2*a))**2)
             Y2 = Capteur1[1] - np.sqrt(R2**2 - ((2*c - a**2)/(2*a))**2)
 
-            assert X1 > 0 , "Attention la distance en X n'est pas positive"
+            # assert X1 > 0 , "Attention la distance en X n'est pas positive"
 
             if Y1 > 0:
 
@@ -170,7 +171,7 @@ class Triangulation:
                 if R_actuel > R_max:
                     T_max = T_max*0.95
 
-                elif SAFE == 1000:
+                elif SAFE == 100:
                     print("SAFE")
                     break
 
@@ -181,12 +182,12 @@ class Triangulation:
 
             
 
-            print("­\n- - RESULTS - -\n")
+            print("\n- - RESULTS - -\n")
             print("\tRayon 1: {}\n\tRayon 2: {}\n\tRayon 3: {}\n".format(R1, R2, R3))
             if Cap == 3:
-                print("\tPosition: ({}, {})\n\tTempérature: {} C\n".format(round(PositionFinale[0], 4), round(PositionFinale[1], 4), round(T_max + self.T_amb, 2)))
+                print("\tPosition: ({}, {})\n\tTempérature: {} K\n".format(round(PositionFinale[0], 4), round(PositionFinale[1], 4), round(T_max + self.T_amb + 273, 2)))
             else:
-                print("\tPosition: ({}, {})\n\tTempérature: {} C\n".format(round(PositionFinale[0], 4), round(-1*PositionFinale[1], 4), round(T_max + self.T_amb, 2)))
+                print("\tPosition: ({}, {})\n\tTempérature: {} K\n".format(round(PositionFinale[0], 4), round(-1*PositionFinale[1], 4), round(T_max + self.T_amb + 273, 2)))
 
             return self.C1, self.C2, self.C3, self.C4, R1, R2, R3, PositionFinale, Cap
             
@@ -233,9 +234,31 @@ def PLOT(C1, C2, C3, C4, R1, R2, R3, Pos, Cap):
 
 
 if __name__ == "__main__":
-    PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 46, 35, 30, 90).Itération_tentative())
+    # PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 46, 35, 30, 90).Itération_tentative())
     # PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 46, 60, 30, 90).Itération_tentative())
     # PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 46, 35, 90, 30).Itération_tentative())
     # PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 46, 35, 60, 30).Itération_tentative())
     # PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 26, 30, 22, 27).Itération_tentative())
+
+    ########################
+    #### Ben simulation ####
+    ########################
+
+    #1
+    # PLOT(*Triangulation((0,0), (4.846,0), (2.423,2.423), (2.423,-2.423), 344.44,347, 343.80,342.43 ).Itération_tentative())
+
+    #2 
+    # PLOT(*Triangulation((0,0), (4.846,0), (2.423,2.423), (2.423,-2.423), 294.95,302.51, 302.63,294.94 ).Itération_tentative())
+
+    #3 
+    # PLOT(*Triangulation((0,0), (4.846,0), (2.423,2.423), (2.423,-2.423), 298.9,302.51, 325.70,300.91 ).Itération_tentative())
+
+    #4
+    # PLOT(*Triangulation((0,0), (4.846,0), (2.423,2.423), (2.423,-2.423), 327.12,299.14, 310.75,302.43 ).Itération_tentative())
+
+    #5
+    PLOT(*Triangulation((0,0), (4.846,0), (2.423,2.423), (2.423,-2.423), 351.63,366.81, 344.08,379.68 ).Itération_tentative())
+
+    #6
+    # PLOT(*Triangulation((0,0), (4.846,0), (2.423,2.423), (2.423,-2.423), 333.42,366.81, 317.29,359.27 ).Itération_tentative())
 

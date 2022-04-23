@@ -234,7 +234,7 @@ def PLOT(C1, C2, C3, C4, R1, R2, R3, Pos, Cap):
 
 
 if __name__ == "__main__":
-    # PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 46, 35, 30, 90).Itération_tentative())
+    PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 46+273, 35+273, 30+273, 90+273).Itération_tentative())
     # PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 46, 60, 30, 90).Itération_tentative())
     # PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 46, 35, 90, 30).Itération_tentative())
     # PLOT(*Triangulation((0,0), (6,0), (3,9), (3, -9), 46, 35, 60, 30).Itération_tentative())
@@ -257,7 +257,7 @@ if __name__ == "__main__":
     # PLOT(*Triangulation((0,0), (4.846,0), (2.423,2.423), (2.423,-2.423), 327.12,299.14, 310.75,302.43 ).Itération_tentative())
 
     #5
-    PLOT(*Triangulation((0,0), (4.846,0), (2.423,2.423), (2.423,-2.423), 351.63,366.81, 344.08,379.68 ).Itération_tentative())
+    # PLOT(*Triangulation((0,0), (4.846,0), (2.423,2.423), (2.423,-2.423), 351.63,366.81, 344.08,379.68 ).Itération_tentative())
 
     #6
     # PLOT(*Triangulation((0,0), (4.846,0), (2.423,2.423), (2.423,-2.423), 333.42,366.81, 317.29,359.27 ).Itération_tentative())

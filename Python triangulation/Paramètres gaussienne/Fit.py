@@ -13,7 +13,7 @@ Coefff = []
 r = [1, 4, 5, 6]
 
 # for i in r:
-df = pd.read_excel(r"C:\Users\Anto\Desktop\Projet-de-conception-en-genie-physique\Python triangulation\Paramètres gaussienne\courbe profil1.xlsx")
+df = pd.read_excel(r"C:\Users\antoi\Desktop\Projet-de-conception-en-genie-physique\Python triangulation\Paramètres gaussienne\courbe profil1.xlsx")
 
 x = df["Longueur [m]"]
 x = x - min(x)
@@ -26,11 +26,11 @@ def func(x, a, b, c, d):
 
 
 # Fit the data to the function
-popt, pcov = curve_fit(func, x, y, maxfev=5000)
-print(popt)
+# popt, pcov = curve_fit(func, x, y, maxfev=5000)
+# print(popt)
 
-plt.scatter(x, y)
-plt.plot(x, func(x, *popt))
+# plt.scatter(x, y)
+plt.plot(x, func(x, 25, 1, 2, 293))
 plt.show()
 
 # Coeffa.append(popt[0])

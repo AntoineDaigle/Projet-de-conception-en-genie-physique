@@ -99,7 +99,7 @@ class Triangulation:
                 y = Y1
                 x = X1
             else:
-                assert Y2 > 0, "Attention, aucune coord en Y n'est positive"
+                # assert Y2 > 0, "Attention, aucune coord en Y n'est positive"
                 y=Y2
                 x = X1
 
@@ -111,7 +111,7 @@ class Triangulation:
             Y2 = Capteur1[1] + (c-a*(X2-Capteur1[0]))/b
 
             if X1 < 0 or Y1 < 0:
-                assert Y2 > 0 and X2 > 0, "Attention, une des coordonnées sélectionnées n'est pas positive."
+                # assert Y2 > 0 and X2 > 0, "Attention, une des coordonnées sélectionnées n'est pas positive."
                 y=Y2
                 x=X2
             else:
@@ -172,7 +172,7 @@ class Triangulation:
                     T_max = T_max*0.95
 
                 elif SAFE == 100:
-                    print("SAFE")
+                    # print("SAFE")
                     break
 
                 else:
@@ -182,14 +182,14 @@ class Triangulation:
 
             
 
-            print("\n- - RESULTS - -\n")
-            print("\tRayon 1: {}\n\tRayon 2: {}\n\tRayon 3: {}\n".format(R1, R2, R3))
-            if Cap == 3:
-                print("\tPosition: ({}, {})\n\tTempérature: {} K\n".format(round(PositionFinale[0], 4), round(PositionFinale[1], 4), round(T_max + self.T_amb + 273, 2)))
-            else:
-                print("\tPosition: ({}, {})\n\tTempérature: {} K\n".format(round(PositionFinale[0], 4), round(-1*PositionFinale[1], 4), round(T_max + self.T_amb + 273, 2)))
+            # print("\n- - RESULTS - -\n")
+            # print("\tRayon 1: {}\n\tRayon 2: {}\n\tRayon 3: {}\n".format(R1, R2, R3))
+            # if Cap == 3:
+            #     print("\tPosition: ({}, {})\n\tTempérature: {} K\n".format(round(PositionFinale[0], 4), round(PositionFinale[1], 4), round(T_max + self.T_amb + 273, 2)))
+            # else:
+            #     print("\tPosition: ({}, {})\n\tTempérature: {} K\n".format(round(PositionFinale[0], 4), round(-1*PositionFinale[1], 4), round(T_max + self.T_amb + 273, 2)))
 
-            return self.C1, self.C2, self.C3, self.C4, R1, R2, R3, PositionFinale, Cap
+            return self.C1, self.C2, self.C3, self.C4, R1, R2, R3, PositionFinale, Cap, T_max
             
 
             
